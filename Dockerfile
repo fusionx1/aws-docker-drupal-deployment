@@ -15,9 +15,9 @@ ADD ./supervisord.conf /etc/supervisord.conf
 
 # Retrieve drupal
 RUN rm -rf /var/www/ ; cd /var ; drush dl drupal ; mv /var/drupal*/ /var/www/
-#RUN drush dl omega ; drush en omega -y
+RUN drush dl drush_deployment ; drush en drush_deployment -y
 RUN chmod a+w /var/www/sites/default ; mkdir /var/www/sites/default/files ; chown -R www-data:www-data /var/www/
-
+RUN drush release-tag v1.3
 RUN chmod 755 /initiate.sh /etc/apache2/foreground.sh
 EXPOSE 80
 CMD ["/bin/bash", "/initiate.sh"]
