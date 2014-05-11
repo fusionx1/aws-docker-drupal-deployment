@@ -12,12 +12,15 @@ RUN easy_install supervisor
 ADD ./initiate.sh /initiate.sh
 ADD ./foreground.sh /etc/apache2/foreground.sh
 ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./deployment.drushrc.php /root/.drush/deployment.drushrc.php
 
 # Retrieve drupal
-RUN rm -rf /var/www/ ; cd /var ; drush dl drupal ; mv /var/drupal*/ /var/www/
-RUN drush dl drush_deployment ; drush en drush_deployment -y
+RUN rm -rf /var/www/ ; cd /var ;
+RUN git clone https://github.com/fusionx1/x-team-drush1.git /var/drupal
+RUN mv /var/drupal/ /var/www/
+RUN cd /var/www ; drush dl drush_deployment ;
 RUN chmod a+w /var/www/sites/default ; mkdir /var/www/sites/default/files ; chown -R www-data:www-data /var/www/
-RUN drush release-tag v1.3
 RUN chmod 755 /initiate.sh /etc/apache2/foreground.sh
 EXPOSE 80
 CMD ["/bin/bash", "/initiate.sh"]
+

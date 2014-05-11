@@ -17,7 +17,9 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	a2enmod rewrite vhost_alias
 	cd /var/www/
 	drush site-install standard -y --account-name=admin --account-pass=admin --db-url="mysqli://drupal:${DRUPAL_PASSWORD}@localhost:3306/drupal"
-	killall mysqld
+	drush en drush_deployment -y
+    drush release-tag v1.0
+    killall mysqld
 	sleep 10s
 fi
 supervisord -n
