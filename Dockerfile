@@ -12,7 +12,7 @@ RUN easy_install supervisor
 ADD ./initiate.sh /initiate.sh
 ADD ./foreground.sh /etc/apache2/foreground.sh
 ADD ./supervisord.conf /etc/supervisord.conf
-ADD ./deployment.drushrc.php /root/.drush/deployment.drushrc.php
+ADD ./deployment.drushrc.php ~/.drush/deployment.drushrc.php
 
 # Retrieve drupal
 RUN rm -rf /var/www/ ; cd /var ;
