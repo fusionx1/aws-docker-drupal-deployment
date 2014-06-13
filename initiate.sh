@@ -18,7 +18,7 @@ if [ ! -f /var/www/sites/default/settings.php ]; then
 	cd /var/www/
 	drush site-install standard -y --account-name=admin --account-pass=admin --db-url="mysqli://drupal:${DRUPAL_PASSWORD}@localhost:3306/drupal"
 	drush en drush_deployment -y
-    drush release-tag v1.0
+    drush release-tag v1.4
     killall mysqld
 	sleep 10s
 fi
